@@ -13,6 +13,7 @@
                                 <th scope="col">Tarefa</th>
                                 <th scope="col">Data limite conclusão</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,6 +23,15 @@
                                     <td>{{ $tarefa->tarefa }}</td>
                                     <td>{{ date('d/m/y', strtotime($tarefa->data_limite_conclusao)) }}</td>
                                     <td> <a href="{{ route('tarefa.edit', $tarefa->id) }}">Editar</a></td>
+                                    <td>
+                                        <form id="form_{{ $tarefa->id }}" method="POST"
+                                            action="{{ route('tarefa.destroy', [$tarefa->id]) }}">
+                                            @method('DELETE')
+                                            @csrf
+                                        </form>
+                                        <a href="#"
+                                            onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">Deletar</a>
+                                    </td>
                                 </tr>
                             @endforeach
 
@@ -34,7 +44,7 @@
                                     <span aria-hidden="true">Voltar</span>
                                 </a>
                             </li>
-                            @for ($i = 1; $i < $tarefas->lastPage(); $i++)
+                            @for ($i = 1; $i <= $tarefas->lastPage(); $i++)
                                 <li class="page-item {{ $tarefas->currentPage() == $i ? 'active' : '' }}"><a
                                         class="page-link" href="{{ $tarefas->url($i) }}">{{ $i }}</a></li>
                             @endfor
