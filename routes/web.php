@@ -19,10 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('tarefa', TarefaController::class);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::resource('tarefa', TarefaController::class)->middleware('verified');
 
 Route::get("/mensagem-test", function () {
     return new MensagemTesteMail();
