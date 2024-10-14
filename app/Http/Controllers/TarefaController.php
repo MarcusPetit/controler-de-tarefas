@@ -17,7 +17,11 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        echo 'cheguei';
+        if (auth()->check()) {
+            return 'VC esta  logado';
+        } else {
+            return 'VC não esta logado';
+        }
     }
 
     /**
