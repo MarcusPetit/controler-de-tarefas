@@ -88,8 +88,13 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
-        $tarefa->update($request->all());
-        return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
+        $user_id = Auth::user()->id;
+        if ($tarefa->user_id == $user_id) {
+            $tarefa->update($request->all());
+            return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
+        } else {
+            return view('acesso-negado');
+        }
     }
 
     /**
@@ -98,8 +103,14 @@ class TarefaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tarefa $tarefa)
     {
-        //
+        $user_id = Auth::user()->id;
+        if ($tarefa->user_id == $user_id) {
+            $tarefa->delete($tarefa->id);
+            return redirect()->route('tarefa.index');
+        } else {
+            return view('acesso-negado');
+        }
     }
 }
