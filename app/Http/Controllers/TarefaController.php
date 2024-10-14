@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TarefaController extends Controller
 {
@@ -17,10 +18,13 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        if (auth()->check()) {
-            return 'VC esta  logado';
+        if (Auth::check()) {
+            $id = Auth::user()->id;
+            $name = Auth::user()->name;
+            $email = Auth::user()->email;
+            return "ID: $id Nome: $name Email: $email";
         } else {
-            return 'VC não esta logado';
+            return 'VC não  esta conectado';
         }
     }
 
