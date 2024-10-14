@@ -49,7 +49,9 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        $tarefa = Tarefa::create($request->all());
+        $dados = $request->all('tarefa', 'data_limite_conclusao');
+        $dados['user_id'] = Auth::user()->id;
+        $tarefa = Tarefa::create($dados);
         $destinatario = Auth::user()->email;
         Mail::to($destinatario)->send(new NovaTarefaMail($tarefa));
         return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
@@ -63,7 +65,7 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
-        return view('tarefa.show' , ['tarefa' => $tarefa]);
+        return view('tarefa.show', ['tarefa' => $tarefa]);
     }
 
     /**
