@@ -5,7 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Lista de tarefas</div>
+                    <div class="card-header">Lista de tarefas <a href="{{ route('tarefa.create') }}"
+                            class="float-right">Cadastrar</a>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
