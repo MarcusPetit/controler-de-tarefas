@@ -7,6 +7,7 @@
                 <div class="card">
                     <div class="card-header">Lista de tarefas <a href="{{ route('tarefa.create') }}"
                             class="float-right">Cadastrar</a>
+                        <a href="{{ route('tarefa.exportacao') }}" class="float-right">XLSX</a>
                     </div>
                     <table class="table">
                         <thead>
